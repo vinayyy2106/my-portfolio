@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:portfolio/constants/colors.dart';
 import 'package:portfolio/utils/project_utils.dart';
 
-
 // ignore: deprecated_member_use
 import 'dart:js' as js;
 
@@ -16,7 +15,7 @@ class projectCardWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       clipBehavior: Clip.antiAlias,
-      height: 295,
+      height: 335,
       width: 250,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(10),
@@ -26,11 +25,13 @@ class projectCardWidget extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisSize: MainAxisSize.min,
         children: [
-          Image.asset(
-            project.image,
-            height: 115,
-            width: 250,
-            fit: BoxFit.cover,
+          ClipRRect(
+            child: Image.asset(
+              project.image,
+              height: 115,
+              width: 250,
+              fit: BoxFit.cover,
+            ),
           ),
           Padding(
             padding: const EdgeInsets.fromLTRB(12, 15, 12, 12),
@@ -55,23 +56,40 @@ class projectCardWidget extends StatelessWidget {
           const Spacer(),
           Container(
             color: CustomColor.bgLight1,
-            padding: const EdgeInsets.symmetric(horizontal: 5,vertical: 5),
+            padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 5),
             child: Row(
               children: [
-                if (project.githubLink != null)
-                  const Text("Available on:",style: TextStyle(color: CustomColor.yellowSecondary,fontSize: 12),),
-                  Spacer(),
-                  InkWell(
-                    onTap: () {
-                      js.context.callMethod("open", [project.githubLink]);
-                    },
-                    child: Chip(
-                      label: const Text("Github"),
-                      avatar: Image.asset("assets/github.png"),
+                if (project.link != null)
+                  Padding(
+                    padding: EdgeInsets.only(left: 8.0),
+                    child: InkWell(
+                      onTap: () {
+                        js.context.callMethod("open", [project.link]);
+                      },
+                      child: const Text(
+                        "Link",
+                        style: TextStyle(
+                          color: CustomColor.yellowSecondary,
+                          fontSize: 12,
+                          decoration:
+                              TextDecoration
+                                  .underline, 
+                          
+                        ),
+                      ),
                     ),
                   ),
-                
-                  
+                if (project.githubLink != null)
+                    Spacer(),
+                    InkWell(
+                      onTap: () {
+                        js.context.callMethod("open", [project.githubLink]);
+                      },
+                      child: Chip(
+                        label: const Text("Github"),
+                        avatar: Image.asset("assets/github.png"),
+                      ),
+                    ),
               ],
             ),
           ),

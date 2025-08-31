@@ -2,7 +2,7 @@ const List<Map> platformItems = [ {
 
 "img": "assets/android.png",
 
-"title": "Android dev",
+"title": "Mobile App dev",
 
 },{
 
@@ -52,6 +52,35 @@ const List<Map> skillItems = [
 "title": "Python",
 
 },
+{
+
+"img": "assets/react.png",
+
+"title": "React",
+
+},
+{
+
+"img": "assets/java.png",
+
+"title": "SpringBoot",
+
+},
+{
+
+"img": "assets/azure.png",
+
+"title": "Microsoft Azure",
+
+},
+{
+
+"img": "assets/docker.png",
+
+"title": "Docker",
+
+},
+
 
 ];
 

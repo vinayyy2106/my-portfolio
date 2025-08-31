@@ -42,7 +42,7 @@ class MainMobile extends StatelessWidget {
             height: 10.0,
           ),
           const Text(
-            "Hi,\nI'm Vinay Kumar Pabbana\nWeb & App Developer",
+            "Hi,\nI'm Vinay Kumar Pabba\nWeb & App Developer",
             style: TextStyle(
               fontSize: 24.0,
               height: 1.5,

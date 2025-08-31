@@ -23,6 +23,7 @@ import 'package:portfolio/widgets/projects_section.dart';
 import 'package:portfolio/widgets/skills_desktop.dart';
 
 import 'package:portfolio/widgets/skills_mobile.dart';
+import 'package:portfolio/widgets/workExperience.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -118,6 +119,8 @@ class _HomePageState extends State<HomePage>
                     ],
                   ),
                 ),
+                const SizedBox(height: 30),
+                WorkExperienceSection(),
                 const SizedBox(height: 30),
                 // projects
                 ProjectsSection(key: navBarkeys[2]),

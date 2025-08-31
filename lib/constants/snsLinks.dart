@@ -8,7 +8,7 @@ static const String instagram =
 
 static const String linkedin =
 
-"http://linkedin.com/in/vinay-kumar-pabba-ab47aa263";
+"http://linkedin.com/in/vinay-kumar-pabba/";
 
 static const String fb =
 

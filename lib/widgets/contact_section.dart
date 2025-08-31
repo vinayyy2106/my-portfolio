@@ -4,15 +4,34 @@ import 'package:portfolio/constants/size.dart';
 import 'package:portfolio/constants/snsLinks.dart' as snsLinks;
 import 'package:portfolio/constants/Snslinks.dart';
 import 'package:portfolio/widgets/custom_text_field.dart';
-
+import 'package:url_launcher/url_launcher.dart';
 // ignore: deprecated_member_use
 import 'dart:js' as js;
 
 class ContactSection extends StatelessWidget {
+  
   const ContactSection({super.key});
-
+  
+  Future<void> launchEmail(String name, String email, String message) async {
+  final Uri emailUri = Uri(
+    scheme: 'mailto',
+    path: 'vinaykumarpabba73@gmail.com',
+    queryParameters: {
+      'subject': 'Contact from Portfolio',
+      'body': 'Name: $name\nEmail: $email\nMessage: $message'
+    },
+  );
+  if (await canLaunchUrl(emailUri)) {
+    await launchUrl(emailUri);
+  } else {
+    throw 'Could not launch email app';
+  }
+}
   @override
   Widget build(BuildContext context) {
+    final nameController = TextEditingController();
+    final emailController = TextEditingController();
+    final messageController = TextEditingController();
     return Container(
       padding: const EdgeInsets.fromLTRB(25, 25, 25, 25),
       color: CustomColor.bgLight1,
@@ -32,9 +51,11 @@ class ContactSection extends StatelessWidget {
             constraints: const BoxConstraints(maxWidth: 700, maxHeight: 100),
             child: LayoutBuilder(builder: (context, constraints) {
               if (constraints.maxWidth > kMednDeskTopWidth) {
-                return buildNameMailField();
+                // return buildNameMailField();
+                return buildNameMailField(nameController, emailController);
               } else {
-                return buildNameMailFieldMobile();
+                // return buildNameMailFieldMobile();
+                return buildNameMailFieldMobile(nameController, emailController);
               }
             }),
           ),
@@ -56,7 +77,13 @@ class ContactSection extends StatelessWidget {
             child: SizedBox(
               width: double.maxFinite,
               child: ElevatedButton(
-                onPressed: () {},
+                
+                onPressed: (){
+                  final name = nameController.text;
+                  final email = emailController.text;
+                  final message = messageController.text;
+                  launchEmail(name, email, message);
+                },
                 style: ElevatedButton.styleFrom(
                   foregroundColor: const Color.fromARGB(255, 255, 255, 255),
                   backgroundColor: const Color.fromARGB(255, 255, 177, 42),
@@ -123,45 +150,89 @@ class ContactSection extends StatelessWidget {
     );
   }
 
-  Row buildNameMailField() {
-    return const Row(
-      children: [
-        Flexible(
-          child: CustomTextField(
-            hintText: "Your name",
-          ),
+  // Row buildNameMailField() {
+  //   return const Row(
+  //     children: [
+  //       Flexible(
+  //         child: CustomTextField(
+  //           hintText: "Your name",
+  //         ),
+  //       ),
+  //       Flexible(
+  //         child: SizedBox(
+  //           width: 15,
+  //         ),
+  //       ),
+  //       Flexible(
+  //         child: CustomTextField(
+  //           hintText: "Your E-Mail",
+  //         ),
+  //       ),
+  //     ],
+  //   );
+  // }
+
+  // Column buildNameMailFieldMobile() {
+  //   return const Column(
+  //     children: [
+        // Flexible(
+        //   child: CustomTextField(
+        //     hintText: "Your name",
+        //   ),
+        // ),
+  //       SizedBox(
+  //         height: 15,
+  //       ),
+  //       Flexible(
+  //         child: CustomTextField(
+  //           hintText: "Your E-Mail",
+  //         ),
+  //       ),
+  //     ],
+  //   );
+  // }
+  Row buildNameMailField(TextEditingController nameController, TextEditingController emailController) {
+  return Row(
+    children: [
+      Flexible(
+        child: CustomTextField(
+          controller: nameController,
+          hintText: "Your name",
         ),
-        Flexible(
+      ),
+     Flexible(
           child: SizedBox(
             width: 15,
           ),
         ),
-        Flexible(
-          child: CustomTextField(
-            hintText: "Your E-Mail",
-          ),
+      Flexible(
+        child: CustomTextField(
+          controller: emailController,
+          hintText: "Your E-Mail",
         ),
-      ],
-    );
-  }
+      ),
+    ],
+  );
+}
 
-  Column buildNameMailFieldMobile() {
-    return const Column(
-      children: [
-        Flexible(
+Column buildNameMailFieldMobile(TextEditingController nameController, TextEditingController emailController) {
+  return Column(
+    children: [
+      Flexible(
           child: CustomTextField(
+            controller: nameController, 
             hintText: "Your name",
           ),
         ),
-        SizedBox(
-          height: 15,
+      SizedBox(height: 15),
+      Flexible(
+        child: CustomTextField(
+          controller: emailController,
+          hintText: "Your E-Mail",
         ),
-        Flexible(
-          child: CustomTextField(
-            hintText: "Your E-Mail",
-          ),
-        ),
-      ],
-    );
-  }
+      ),
+    ],
+  );
+}
+
 }
